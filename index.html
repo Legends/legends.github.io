@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ASP.NET_Core_Model_Binding_Samples</title>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css" />
+
+    <style>
+         
+/* NAVIGATION - SIDE BAR  */
+
+.sidenav li > a {
+    padding: 0 16px;
+}
+
+.sidenav .divider {
+    margin: 0;
+    height: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: transparent;
+}
+
+    .sidenav .divider.you {
+        margin-top: 0px;
+    }
+
+.sidenav-header {
+    /*background: url("../images/user-bg.jpg") no-repeat center center;*/
+    background-size: cover;
+    margin-bottom: 0px;
+    padding: 15px 0 0 15px;
+}
+
+    .sidenav-header .row {
+        margin-bottom: 0;
+    }
+
+.sidenav-footer {
+    margin-bottom: 0px;
+    padding: 0;
+}
+
+    .sidenav-footer .row {
+        margin-bottom: 0;
+    }
+
+        .sidenav-footer .row .social-icons a {
+            opacity: 0.5;
+            padding: 0;
+            text-align: center;
+        }
+
+            .sidenav-footer .row .social-icons a:hover {
+                background-color: inherit;
+                opacity: 1;
+            }
+
+ /* Side Bar Scrolling bar */
+nav [data-simplebar] {
+    position:fixed;
+}
+
+    </style>    
+
+
+</head>
+<body>
+
+<!-- <div class="navbar-fixed"> -->
+<nav>
+    <div class="nav-wrapper blue darken-2">
+        <!-- Logo -->
+        <a href="#" class="brand-logo right">Logo</a>
+
+        <!--OPENS THE SIDE BAR ON CLICK -->
+        <a href="#" data-target="mobile-navbar" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+        </a>
+
+        <!-- #########################################    MAIN NAVIGATION    ########################################-->
+
+<ul id="navbar-items" class="left hide-on-med-and-down">
+    <li>
+        @Html.ActionLink("Home", "Index")
+    </li>
+    <li>
+        <a class="dropdown-trigger" data-target="dropdown-menu-complex-type" href="#">
+            Complex Types <i class="material-icons right">arrow_drop_down</i>
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-trigger" data-target="dropdown-menu-misc" href="#">
+            Misc <i class="material-icons right">arrow_drop_down</i>
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-trigger" data-target="dropdown-menu-from-source" href="#">
+            From source <i class="material-icons right">arrow_drop_down</i>
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-trigger" data-target="dropdown-menu-collections" href="#">
+            List/Dictionary <i class="material-icons right">arrow_drop_down</i>
+        </a>
+    </li>
+</ul>
+<!-- Dropdown -->
+<ul id="dropdown-menu-collections" class="dropdown-content">
+    <li>
+        @Html.ActionLink("Dictionary<string,string>", "DictionarySample")
+    </li>
+    <li>
+        @Html.ActionLink("List<string>", "Places")
+    </li>
+    <li>
+        @Html.ActionLink("List<string> 2", "ListStringSample")
+    </li>
+</ul>
+<!-- Dropdown -->
+<ul id="dropdown-menu-from-source" class="dropdown-content">
+    <li>
+        @Html.ActionLink("FromHeader", "FromHeader")
+    </li>
+    <li>
+        @Html.ActionLink("FromQuery", "FromQuery")
+    </li>
+    <li>
+        @Html.ActionLink("FromRoute", "FromRoute")
+    </li>
+    <li>
+        @Html.ActionLink("FromBody-Complex-Type", "ComplexTypeFromBody")
+    </li>
+</ul>
+<!-- Dropdown -->
+<ul id="dropdown-menu-complex-type" class="dropdown-content">
+    <li>
+        @Html.ActionLink("Complex type - JSON", "AddUser")
+    </li>
+    <li>
+        @Html.ActionLink("Simple complex type", "JobApplication")
+    </li>
+    <li>
+        @Html.ActionLink("List Complex Type", "AddPermissions")
+    </li>
+    <li>
+        @Html.ActionLink("List Complex Type 2", "Address")
+    </li>
+</ul>
+<!-- Dropdown -->
+<ul id="dropdown-menu-misc" class="dropdown-content">
+    <li>
+        @Html.ActionLink("Bind properties with different prefix", "Create")
+    </li>
+    <li>
+        @Html.ActionLink("FormCollectionPost", "FormCollectionPost")
+    </li>
+    <li>
+        @Html.ActionLink("Upload-Base64String", "UploadBase64String")
+    </li>
+    <li>
+        @Html.ActionLink("Input-Output-Formatters for VCARD format", "InputOutputFormatters")
+    </li>
+</ul>
+
+<!-- ###########################################    Side bar      ############################################  -->
+<ul id="mobile-navbar"  data-simplebar class="sidenav grey darken-2">
+    <li class="sidenav-header blue">
+        <div class="row">
+            <div class="col s4">
+                <img src="//i.stack.imgur.com/u0aMo.gif?s=64&g=1">
+            </div>
+            <div class="col s8">
+                <a id="aJay" class="btn-flat  dropdown-button dropdown-trigger waves-effect waves-light white-text" href="#" data-target="profile-dropdown">JM<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <ul id="profile-dropdown" class="dropdown-content">
+                    <li><a href="#"><i class="material-icons">person</i>Profile</a></li>
+                    <li><a href="#"><i class="material-icons">settings</i>Setting</a></li>
+                    <li><a href="#"><i class="material-icons">help</i>Help</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="material-icons">lock</i>Lock</a></li>
+                    <li><a href="#"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </li>
+
+    <li class="blue">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header white-text waves-effect waves-blue "><i class="material-icons white-text ">language</i>Language <i class="material-icons right white-text" style="margin-right:0;">arrow_drop_down</i></a>
+                <div class="collapsible-body z-depth-3">
+                    <ul>
+                        <li><a class="waves-effect waves-blue" href="#">English</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">العربية</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">中文</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Čeština</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Nederlands</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Français</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Deutsch</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">한국어</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Português</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Русский</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Español</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Svenska</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">ภาษาไทย</a></li>
+                        <li><a class="waves-effect waves-blue" href="#">Türkçe</a></li>
+                        <li><div class="divider"></div></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="white">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header waves-effect waves-blue"><i class="material-icons">folder_special</i>Layouts <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a class="waves-effect waves-blue" href="#"><i class="material-icons">fullscreen</i>Full Screen<span class="new badge right yellow grey lighten-1" data-badge-caption="updated"></span></a></li>
+                        <li><a class="waves-effect waves-blue" href="#"><i class="material-icons">swap_horiz</i>Horizontal Menu<span class="new badge right yellow darken-3"></span></a></li>
+                        <li><div class="divider"></div></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li class="white">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header waves-effect waves-blue"><i class="material-icons">folder_open</i>A submenu <i class="material-icons right" style="margin-right:0;">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a class="waves-effect waves-blue" href="#"><i class="material-icons">fullscreen</i>Full Screen</a></li>
+                        <li><a class="waves-effect waves-blue" href="#"><i class="material-icons">swap_horiz</i>Horizontal Menu</a></li>
+                        <li><div class="divider"></div></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="white"><a href="#" class="waves-effect waves-blue"><i class="material-icons">mail</i>Menu item</a></li>
+    <li class="white"><a href="#" class="waves-effect waves-blue"><i class="material-icons">call</i> Menu item</a></li>
+    <li class="white"><a href="#" class="waves-effect waves-blue"><i class="material-icons">android</i> Menu item</a></li>
+    <li class="white"><a href="#" class="waves-effect waves-blue"><i class="material-icons">dialpad</i> Menu item</a></li>
+    <li class="white"><div class="divider you"></div></li>
+    <li class="white">
+        <a href="#" class="waves-effect waves-blue">
+            <i class="material-icons">language</i> Menu item
+            <span class="new badge right yellow darken-3"></span>
+        </a>
+    </li>
+
+    <li class="sidenav-footer grey darken-2">
+        <div class="row">
+            <div class="social-icons">
+                <div class="col s2">
+                    <a href="//www.linkedin.com"><i class="fa fa-lg fa-linkedin-square"></i></a>
+                </div>
+                <div class="col s2">
+                    <a href="//wwwfacebook.com"><i class="fa fa-lg fa-facebook-official"></i></a>
+                </div>
+                <div class="col s2">
+                    <a href="//www.twitter.com"><i class="fa fa-lg fa-twitter"></i></a>
+                </div>
+                <div class="col s2">
+                    <a href="//instagram.com"><i class="fa fa-lg fa-instagram"></i></a>
+                </div>
+                <div class="col s2">
+                    <a href="//pinterest.com/"><i class="fa fa-lg fa-pinterest"></i></a>
+                </div>
+                <div class="col s2">
+                    <a href="//www.youtube.com"><i class="fa fa-lg fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </li>
+
+</ul>
+
+    </div>
+</nav>
+<!-- </div> -->
+ 
+   <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+  
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+       
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, { edge: 'left' });
+
+        const elemsDropdown = document.querySelectorAll(".dropdown-trigger");
+        const instancesDropdown = M.Dropdown.init(elemsDropdown, {
+            coverTrigger: false,
+            constrainWidth: false,
+            hover: false
+        });
+
+        var elems = document.querySelectorAll('.collapsible');
+        var instances = M.Collapsible.init(elems, { accordion: true });
+
+        M.Dropdown.init(document.querySelector("#aJay"), { hover: false, constrainWidth: false });
+    });
+</script>
+    
+    </body>
+    
+</html>
