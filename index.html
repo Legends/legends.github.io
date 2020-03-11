@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .g-content {
+            display: grid;
+            height: 100%;
+            grid-template-columns: 200px 1fr;
+            grid-template-rows: 60px 1fr 30px;
+            grid-template-areas:
+                "g-header g-header"
+                "g-side g-main"
+                "g-footer g-footer";
+            overflow-x: hidden;
+        }
+
+        .g-header {
+            grid-area: g-header;
+            background: #2B4A6B;
+            display: grid;
+            grid-template-columns: max-content 1fr;
+        }
+
+        .g-header button {
+            align-self: center;
+            margin: 0 5px;
+        }
+
+        .g-side {
+            grid-area: g-side;
+            background: #272B30;
+            transition: all 0.5s;
+        }
+
+        .g-main {
+            grid-area: g-main;
+            background: #FFFFFA;
+            transition: all 0.5s;
+        }
+
+        .g-footer {
+            grid-area: g-footer;
+            background: #7E827A
+        }
+
+        .animate .g-main {
+            width: calc(100% + 200px);
+            transform: translateX(-200px);
+        }
+
+        .animate .g-side {
+            transform: translateX(-200px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="g-content">
+        <div class="g-header">
+            <button id="btnToggle">
+                Toggle
+            </button>
+        </div>
+        <div class="g-side">
+        </div>
+        <div class="g-main">
+            test test test test test test test test test test test test test test test test test test test test test
+            test test test test test test test test test test test test test test test test test test test test test
+            test test test test test test test test test test test test test test test test test test test test test
+            test test test test test test test test test test test test test test test test test test test test test
+            test test test test test test test test test test test test test test test test test test test test test
+            test test
+        </div>
+        <div class="g-footer">
+        </div>
+    </div>
+    <script>
+        var button = document.querySelector("#btnToggle");
+        button.addEventListener("click", function () {
+            var content = document.querySelector(".g-content");
+            content.classList.toggle("animate");
+        });
+    </script>
+</body>
+
+
+</html>
